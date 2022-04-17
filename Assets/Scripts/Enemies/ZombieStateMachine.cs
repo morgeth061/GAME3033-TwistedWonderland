@@ -5,6 +5,9 @@ using UnityEngine;
 public class ZombieStateMachine : MonoBehaviour
 {
 
+    public GameObject[] objectsToSpawn;
+    public int buffer;
+
     public State currentState { get; private set; }
     protected Dictionary<ZombieStateType, State> states;
     bool isRunning;
@@ -43,6 +46,14 @@ public class ZombieStateMachine : MonoBehaviour
         }
         if (!states.ContainsKey(nextState)) return;
 
+        if (nextState == ZombieStateType.isDead)
+        {
+            float randomizer = Random.Range(0, buffer + objectsToSpawn.Length);
+            if ((int)randomizer < objectsToSpawn.Length)
+            {
+                Instantiate(objectsToSpawn[(int)randomizer], new Vector3(transform.position.x, 2.5f, transform.position.z), transform.rotation);
+            }
+        }
         currentState = states[nextState];
         currentState.Start();
 

@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6605671261037804426}
-  - component: {fileID: 4328323238924243863}
+  - component: {fileID: 4498769458480080429}
   m_Layer: 0
   m_Name: ShotgunPrefab
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4328323238924243863
+--- !u!114 &4498769458480080429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,29 +73,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 2880224734579864047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73292b500febd5f408453e53dc4dbb82, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ea4555e7e6090347a7c776cbcbb2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gripLocation: {fileID: 1094569513698284038}
   firingEffectLocation: {fileID: 3439361591501960248}
   firingEffect: {fileID: 4148196990138589902}
   weaponStats:
-    WeaponType: 2
+    weaponType: 2
     weaponName: Double-Barrel Shotgun
-    damage: 100
+    damage: 150
     bulletsInClip: 2
     clipSize: 2
     fireStartDelay: 0.07
     fireRate: 250
     weaponFiringPattern: 0
-    fireDistance: 500
+    fireDistance: 150
     repeating: 0
     weaponHitLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 55
     totalBullets: 50
   isFiring: 0
   isReloading: 0
+  projectiles: 20
+  spreadRange: 350
 --- !u!1 &7236452505964874332
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,8 +39,11 @@ public class AK47Component : WeaponComponent
 
     void DealDamage(RaycastHit hitInfo)
     {
-        IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
-        damageable?.TakeDamage(weaponStats.damage);
+        if (!hitInfo.transform.gameObject.CompareTag("Player"))
+        {
+            IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+            damageable?.TakeDamage(weaponStats.damage);
+        }
     }
 
     private void OnDrawGizmos()

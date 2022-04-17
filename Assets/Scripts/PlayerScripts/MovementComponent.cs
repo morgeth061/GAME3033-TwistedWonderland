@@ -14,6 +14,7 @@ public class MovementComponent : MonoBehaviour
 
     //components
     private PlayerController playerController;
+    private bool isPaused;
     Rigidbody rigidbody;
     Animator playerAnimator;
     public GameObject followTarget;
@@ -63,13 +64,15 @@ public class MovementComponent : MonoBehaviour
         angles.z = 0;
 
         var angle = followTarget.transform.localEulerAngles.x;
+        angle = 180.0f;
 
         float min = -60;
         float max = 70.0f;
         float range = max - min;
         float offsetToZero = 0 - min;
         float aimAngle = followTarget.transform.localEulerAngles.x;
-        aimAngle = (aimAngle > 180) ? aimAngle - 360 : aimAngle;
+        //aimAngle = (aimAngle > 180) ? aimAngle - 360 : aimAngle;
+        aimAngle = 180.0f;
         float val = (aimAngle + offsetToZero) / (range);
         //print(val);
         playerAnimator.SetFloat(aimVerticalHash, val);
@@ -139,6 +142,16 @@ public class MovementComponent : MonoBehaviour
 
 
         //if we aim up, down, adjust animations to have a mask that will let us properly animate aim
+    }
+
+    public void OnPause(InputValue value)
+    {
+        isPaused = !isPaused;
+
+        if (isPaused)
+        {
+
+        }
     }
 
 

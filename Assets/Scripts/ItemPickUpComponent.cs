@@ -39,11 +39,21 @@ public class ItemPickUpComponent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-
-        //add to inventory here
-        //get reference to player inventory, add item to it
-
-        Destroy(gameObject);
+        if (other.CompareTag("Player"))
+        {
+            print("Picked Up Weapon");
+            if (pickupItem.itemCategory == ItemCategory.Weapon)
+            {
+                other.GetComponent<WeaponHolder>().weaponToSpawn = pickupItem.itemPrefab;
+                other.GetComponent<WeaponHolder>().InstantiateWeapon();
+            }
+            else if (pickupItem.itemCategory == ItemCategory.Consumable)
+            {
+                other.GetComponent<PlayerHealthComponent>().Heal(100);
+                
+                //other.GetComponent<ScriptableObject>().UseItem(other.GetComponent<PlayerController>());
+            }
+            Destroy(gameObject);
+        }
     }
 }

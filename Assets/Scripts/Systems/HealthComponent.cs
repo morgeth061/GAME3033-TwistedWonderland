@@ -23,6 +23,18 @@ public class HealthComponent : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    public virtual void Heal(int healValue)
+    {
+        if (currentHealth < MaxHealth && currentHealth > MaxHealth - healValue)
+        {
+            currentHealth = MaxHealth;
+        }
+        else if (currentHealth < MaxHealth - 100)
+        {
+            currentHealth += healValue;
+        }
+    }
+
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;

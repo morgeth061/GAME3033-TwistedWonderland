@@ -3435,6 +3435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82752a4c9473dbc469f2831fd261c53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectsToSpawn:
+  - {fileID: 1191678665024129966, guid: ffe149a9756a02748a80232268bdb0fb, type: 3}
+  - {fileID: 642746648141812008, guid: 3227439f7a38dc74b8c91a0fa5106a75, type: 3}
+  - {fileID: 1791057487607040156, guid: 253106884360cc949b57218fbcf589a5, type: 3}
+  buffer: 15
 --- !u!114 &538511001
 MonoBehaviour:
   m_ObjectHideFlags: 0

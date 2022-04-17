@@ -60,7 +60,7 @@ MonoBehaviour:
     repeating: 1
     weaponHitLayers:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 55
     totalBullets: 500
   isFiring: 0
   isReloading: 0

@@ -14,18 +14,27 @@ public class ZombieSpawner : MonoBehaviour
     void Start()
     {
         followGameObject = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    public void NewWave()
+    {
+        
         for (int i = 0; i < numberOfZombiesToSpawn; i++)
         {
             SpawnZombie();
         }
-
     }
 
     void SpawnZombie()
     {
+        print("Test");
         GameObject zombieToSpawn = zombiePrefab[Random.Range(0, zombiePrefab.Length)];
         SpawnerVolume spawnVolume = spawnVolumes[Random.Range(0, spawnVolumes.Length)];
-        if (!followGameObject) return;
+        //if (!followGameObject) return;
+        if (!followGameObject)
+        {
+            followGameObject = GameObject.FindGameObjectWithTag("Player");
+        }
 
         GameObject zombie = Instantiate(zombieToSpawn, spawnVolume.GetPositionInBounds(), spawnVolume.transform.rotation);
 
