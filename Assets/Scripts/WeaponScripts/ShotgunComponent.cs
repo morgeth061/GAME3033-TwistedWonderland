@@ -9,11 +9,15 @@ public class ShotgunComponent : WeaponComponent
 
     Vector3 hitLocation;
 
+    public AudioClip Shot;
+    public AudioClip Reload;
 
     protected override void FireWeapon()
     {
         if (weaponStats.bulletsInClip > 0 && !isReloading && !weaponHolder.playerController.isRunning)
         {
+            GetComponent<AudioSource>().clip = Shot;
+            GetComponent<AudioSource>().Play();
             base.FireWeapon();
             if (firingEffect)
             {
@@ -60,6 +64,8 @@ public class ShotgunComponent : WeaponComponent
         else if (weaponStats.bulletsInClip <= 0)
         {
             weaponHolder.StartReloading();
+            GetComponent<AudioSource>().clip = Reload;
+            GetComponent<AudioSource>().Play();
         }
     }
 

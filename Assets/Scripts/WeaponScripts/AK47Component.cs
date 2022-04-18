@@ -7,14 +7,19 @@ public class AK47Component : WeaponComponent
     // Start is called before the first frame update
     Vector3 hitLocation;
 
+    public AudioClip Shot;
+    public AudioClip Reload;
+
     protected override void FireWeapon()
     {
 
         if (weaponStats.bulletsInClip > 0 && !isReloading && !weaponHolder.playerController.isRunning)
         {
+            GetComponent<AudioSource>().clip = Shot;
             base.FireWeapon();
             if (firingEffect)
             {
+                GetComponent<AudioSource>().Play();
                 firingEffect.Play();
 
             }
@@ -34,6 +39,8 @@ public class AK47Component : WeaponComponent
         else if (weaponStats.bulletsInClip <= 0)
         {
             weaponHolder.StartReloading();
+            GetComponent<AudioSource>().clip = Reload;
+            GetComponent<AudioSource>().Play();
         }
     }
 

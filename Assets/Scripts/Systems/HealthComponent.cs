@@ -40,6 +40,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            //Game Loss
             Destroy();
         }
     }

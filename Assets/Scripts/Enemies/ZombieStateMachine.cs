@@ -54,6 +54,11 @@ public class ZombieStateMachine : MonoBehaviour
                 Instantiate(objectsToSpawn[(int)randomizer], new Vector3(transform.position.x, 2.5f, transform.position.z), transform.rotation);
             }
         }
+
+        if (nextState == ZombieStateType.Attacking)
+        {
+            GetComponent<AudioSource>().Play();
+        }
         currentState = states[nextState];
         currentState.Start();
 

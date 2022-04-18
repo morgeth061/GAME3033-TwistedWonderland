@@ -12,7 +12,7 @@ public class WeaponHolder : MonoBehaviour
     public PlayerController playerController;
     Animator animator;
     Sprite crosshairImage;
-    WeaponComponent equippedWeapon;
+    public WeaponComponent equippedWeapon;
 
     [SerializeField]
     GameObject weaponSocketLocation;
@@ -38,13 +38,22 @@ public class WeaponHolder : MonoBehaviour
 
     public void InstantiateWeapon()
     {
+        GetComponent<AudioSource>().Play();
+        ClearWeapon();
         GameObject spawnedWeapon = Instantiate(weaponToSpawn, weaponSocketLocation.transform.position, weaponSocketLocation.transform.rotation, weaponSocketLocation.transform);
-
         equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
         equippedWeapon.Initialize(this);
         PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
 
         gripIKSocketLocation = equippedWeapon.gripLocation;
+    }
+
+    public void ClearWeapon()
+    {
+        if (weaponSocketLocation.transform.childCount > 0)
+        {
+            Destroy(weaponSocketLocation.transform.GetChild(0).gameObject);
+        }
     }
 
     // Update is called once per frame

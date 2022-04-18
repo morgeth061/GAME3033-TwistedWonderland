@@ -12,9 +12,11 @@ public class MovementComponent : MonoBehaviour
     [SerializeField]
     float jumpForce = 5;
 
+    public GameObject pauseScreen;
+
     //components
     private PlayerController playerController;
-    private bool isPaused;
+    public bool isPaused;
     Rigidbody rigidbody;
     Animator playerAnimator;
     public GameObject followTarget;
@@ -37,9 +39,16 @@ public class MovementComponent : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         playerAnimator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         if (!GameManager.instance.cursorActive)
         {
@@ -109,14 +118,20 @@ public class MovementComponent : MonoBehaviour
 
     public void OnMovement(InputValue value)
     {
-        inputVector = value.Get<Vector2>();
-        playerAnimator.SetFloat(movementXHash, inputVector.x);
-        playerAnimator.SetFloat(movementYHash, inputVector.y);
+        if (!isPaused)
+        {
+            inputVector = value.Get<Vector2>();
+            playerAnimator.SetFloat(movementXHash, inputVector.x);
+            playerAnimator.SetFloat(movementYHash, inputVector.y);
+        }
     }
     public void OnRun(InputValue value)
     {
-        playerController.isRunning = value.isPressed;
-        playerAnimator.SetBool(isRunningHash, playerController.isRunning);
+        if (!isPaused)
+        {
+            playerController.isRunning = value.isPressed;
+            playerAnimator.SetBool(isRunningHash, playerController.isRunning);
+        }
     }
     public void OnJump(InputValue value)
     {
@@ -125,20 +140,25 @@ public class MovementComponent : MonoBehaviour
             return;
         }
 
-        playerController.isJumping = value.isPressed;
-        rigidbody.AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
-        playerAnimator.SetBool(isJumpingHash, playerController.isJumping);
+        if (!isPaused)
+        {
+            playerController.isJumping = value.isPressed;
+            rigidbody.AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
+            playerAnimator.SetBool(isJumpingHash, playerController.isJumping);
+        }
     }
 
     public void OnAim(InputValue value)
     {
-        playerController.isAiming = value.isPressed;
+        if (!isPaused)
+            playerController.isAiming = value.isPressed;
 
     }
 
     public void OnLook(InputValue value)
     {
-        lookInput = value.Get<Vector2>();
+        if(!isPaused)
+            lookInput = value.Get<Vector2>();
 
 
         //if we aim up, down, adjust animations to have a mask that will let us properly animate aim
@@ -150,7 +170,17 @@ public class MovementComponent : MonoBehaviour
 
         if (isPaused)
         {
-
+            Time.timeScale = 0;
+            pauseScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            pauseScreen.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 

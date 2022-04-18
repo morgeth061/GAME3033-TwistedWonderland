@@ -8,7 +8,11 @@ public class WaveManager : MonoBehaviour
     public int totalWaves;
     public int currentWave;
 
+    public GameObject winUI;
+
     public ZombieSpawner[] spawners;
+
+    public AudioSource WaveBeginSFX;
 
     private bool timerCounting;
 
@@ -29,6 +33,12 @@ public class WaveManager : MonoBehaviour
         if (currentWave >= totalWaves)
         {
             //Win Condition
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<MovementComponent>().isPaused = true;
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            winUI.SetActive(true);
         }
 
         if (timerCounting)
@@ -38,14 +48,16 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            timer = waveTime;
+            
             NewWave();
             currentWave++;
         }
     }
 
-    private void NewWave()
+    public void NewWave()
     {
+        timer = waveTime;
+        WaveBeginSFX.Play();
         for (int i = 0; i < spawners.Length; i++)
         {
             spawners[i].NewWave();
